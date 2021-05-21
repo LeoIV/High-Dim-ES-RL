@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="high-dim-es-rl",
-    version="0.0.7",
+    version="0.0.8",
     packages=["high_dim_es_rl"],
     install_requires=["numpy",
                       "matplotlib",
