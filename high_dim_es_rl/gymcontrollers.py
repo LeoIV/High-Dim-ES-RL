@@ -26,11 +26,12 @@ from keras.models import Sequential
 
 tf.disable_v2_behavior()
 
+
 class Controller(object):
     '''Class for Keras (Tensorflow backend) based OpenAI gym controllers.'''
 
     def __init__(self, modelFunctionHandle, env,
-                 episode_length, device='/cpu:0', render=False,
+                 episode_length, device='/cpu:0',
                  force_action_space=None):
         '''Initialize a controller.
 
@@ -73,13 +74,12 @@ class Controller(object):
         self.episode_length = episode_length
         self.device = device
         self.frame_count = 0
-        self.render = render
         # save weight sizes for output as column vector
         self.weight_sizes = [(x.shape, x.size) for x in self.stacked_weights]
         # save the dimension by simply adding all sizes
         self.n = sum([x.size for x in self.stacked_weights])
 
-    def fitness(self, flat_weights):
+    def fitness(self, flat_weights, render: bool = False):
         '''Sample the cumulative return of one episode acting according to
         current weights.
 
@@ -101,7 +101,7 @@ class Controller(object):
         # loop over steps
         for step in range(self.episode_length):
             # check rendering
-            if self.render:
+            if render:
                 self.env.render()
 
             # be sure to use preferred device
