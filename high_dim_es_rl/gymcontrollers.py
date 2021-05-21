@@ -20,7 +20,7 @@ EarlyStop
 '''
 import gym
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 from keras.layers import Dense, Activation
 from keras.models import Sequential
 
@@ -173,7 +173,7 @@ class Models(object):
         model.add(Activation('sigmoid'))
 
         # resolves error in multithreading
-        graph = tf.compat.v1.get_default_graph()
+        graph = tf.get_default_graph()
         return model, graph
 
     @staticmethod
@@ -191,7 +191,7 @@ class Models(object):
         model.add(Activation('sigmoid'))
 
         # resolves error in multithreading
-        graph = tf.compat.v1.get_default_graph()
+        graph = tf.get_default_graph()
         return model, graph
 
     @staticmethod
@@ -208,7 +208,7 @@ class Models(object):
         model.add(Dense(output_dim))
         model.add(Activation('sigmoid'))
 
-        graph = tf.compat.v1.get_default_graph()
+        graph = tf.get_default_graph()
         return model, graph
 
     @staticmethod
@@ -224,7 +224,7 @@ class Models(object):
         model.add(Dense(output_dim))
         model.add(Activation('sigmoid'))
 
-        graph = tf.compat.v1.get_default_graph()
+        graph = tf.get_default_graph()
         return model, graph
 
 
