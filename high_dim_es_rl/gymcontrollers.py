@@ -20,10 +20,11 @@ EarlyStop
 '''
 import gym
 import numpy as np
-import tensorflow.compat.v1 as tf
+import tensorflow as tf
 from keras.layers import Dense, Activation
 from keras.models import Sequential
 
+tf.disable_v2_behavior()
 
 class Controller(object):
     '''Class for Keras (Tensorflow backend) based OpenAI gym controllers.'''
@@ -172,7 +173,7 @@ class Models(object):
         model.add(Activation('sigmoid'))
 
         # resolves error in multithreading
-        graph = tf.get_default_graph()
+        graph = tf.compat.v1.get_default_graph()
         return model, graph
 
     @staticmethod
@@ -190,7 +191,7 @@ class Models(object):
         model.add(Activation('sigmoid'))
 
         # resolves error in multithreading
-        graph = tf.get_default_graph()
+        graph = tf.compat.v1.get_default_graph()
         return model, graph
 
     @staticmethod
@@ -207,7 +208,7 @@ class Models(object):
         model.add(Dense(output_dim))
         model.add(Activation('sigmoid'))
 
-        graph = tf.get_default_graph()
+        graph = tf.compat.v1.get_default_graph()
         return model, graph
 
     @staticmethod
@@ -223,7 +224,7 @@ class Models(object):
         model.add(Dense(output_dim))
         model.add(Activation('sigmoid'))
 
-        graph = tf.get_default_graph()
+        graph = tf.compat.v1.get_default_graph()
         return model, graph
 
 
