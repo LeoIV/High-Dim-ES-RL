@@ -287,7 +287,7 @@ class EarlyStop(object):
     step_fitness_dict = {'CartPole-v0': [],
                          'CarRacing-v0': [],
                          'Breakout-ram-v0': [],
-                         'BipedalWalker-v2': [(190, 15), (300, 30), (400, 40), (600, 50),
+                         'BipedalWalker-v3': [(190, 15), (300, 30), (400, 40), (600, 50),
                                               (700, 65), (800, 80)],
                          'RoboschoolPong-v1': [],
                          'Acrobot-v1': []}
