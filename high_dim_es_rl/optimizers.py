@@ -1,4 +1,3 @@
-
 '''This module contains the following:
 
 LMMAES
@@ -11,8 +10,10 @@ ES
   in extremely high dimension.
 '''
 
-import numpy as np
 from multiprocessing.dummy import Pool
+
+import numpy as np
+
 from base import BaseOptimizer
 
 
@@ -87,7 +88,7 @@ Args:
 
         # otherwise tuning constants break - use standard CMA-ES instead :)
         assert self.lmbd < self.n
-        self.mu = self.lmbd//2
+        self.mu = self.lmbd // 2
         self.w = np.array([np.log(self.mu + 0.5) - np.log(i + 1)
                            for i in range(self.mu)])
         self.w /= np.sum(self.w)
@@ -95,7 +96,7 @@ Args:
 
         self.m = self.lmbd
 
-        self.c_sigma = (2*self.lmbd)/self.n
+        self.c_sigma = (2 * self.lmbd) / self.n
 
         self.c_d = np.zeros((self.m,))
         self.c_c = np.zeros((self.m,))
@@ -113,16 +114,16 @@ Args:
         self.M = np.zeros((self.m, self.n))
 
         # useful values
-        self.c_sigma_update = np.sqrt(self.mu_w*self.c_sigma*(2-self.c_sigma))
-        self.c_c_update = np.sqrt(self.mu_w*self.c_c*(2-self.c_c))
+        self.c_sigma_update = np.sqrt(self.mu_w * self.c_sigma * (2 - self.c_sigma))
+        self.c_c_update = np.sqrt(self.mu_w * self.c_c * (2 - self.c_c))
         self.fd = np.zeros((self.lmbd,))
 
         # deviation from the paper
         # damping constant
         self.d_sigma = 2
         # ~ expected length of normally distributed vector
-        self.chi = np.sqrt(self.n) * (1 - (1/(4*self.n)) -
-                                      (1/(21*self.n*self.n)))
+        self.chi = np.sqrt(self.n) * (1 - (1 / (4 * self.n)) -
+                                      (1 / (21 * self.n * self.n)))
 
     def step(self):
         '''Optimization step of the LMMAES.
@@ -173,7 +174,7 @@ Args:
         # update direction vectors
         for i in range(self.m):
             self.M[i, :] = ((1 - self.c_c[i]) * self.M[i, :]) + \
-                (self.c_c_update[i] * self.wz)
+                           (self.c_c_update[i] * self.wz)
 
         # update step size
         self.sigma *= np.exp((self.c_sigma / self.d_sigma) *
@@ -255,16 +256,16 @@ Args:
 
         # otherwise tuning constants break - use standard CMA-ES instead :)
         assert self.lmbd < self.n
-        self.mu = self.lmbd//2
+        self.mu = self.lmbd // 2
         self.w = np.array([np.log(self.mu + 0.5) - np.log(i + 1)
                            for i in range(self.mu)])
         self.w /= np.sum(self.w)
         self.mu_w = 1 / np.sum(np.square(self.w))
 
-        self.c_sigma = (self.mu_w+2)/(self.n+self.mu_w+5)
-        self.c_1 = 2/(np.power((self.n + 1.3), 2)+self.mu_w)
-        self.c_mu = min(1-self.c_1, 2*(self.mu_w-2+(1/self.mu_w)
-                                       )/(np.power(self.n+2, 2)+self.mu_w))
+        self.c_sigma = (self.mu_w + 2) / (self.n + self.mu_w + 5)
+        self.c_1 = 2 / (np.power((self.n + 1.3), 2) + self.mu_w)
+        self.c_mu = min(1 - self.c_1, 2 * (self.mu_w - 2 + (1 / self.mu_w)
+                                           ) / (np.power(self.n + 2, 2) + self.mu_w))
 
         # 2: initialize
         self.t = 0
@@ -275,15 +276,15 @@ Args:
         self.M = np.identity(self.n)
 
         # useful values
-        self.c_sigma_update = np.sqrt(self.mu_w*self.c_sigma*(2-self.c_sigma))
+        self.c_sigma_update = np.sqrt(self.mu_w * self.c_sigma * (2 - self.c_sigma))
         self.fd = np.zeros((self.lmbd,))
 
         # deviation from the paper
         # damping constant
         self.d_sigma = 2
         # ~ expected lengthof normal distributed vector
-        self.chi = np.sqrt(self.n) * (1 - (1/(4*self.n)) -
-                                      (1/(21*self.n*self.n)))
+        self.chi = np.sqrt(self.n) * (1 - (1 / (4 * self.n)) -
+                                      (1 / (21 * self.n * self.n)))
 
     def step(self):
         '''Optimization step of the MAES.
@@ -335,9 +336,9 @@ Args:
         self.p_sigma += self.c_sigma_update * self.wz
 
         # update matrix
-        self.M *= (1-(self.c_1/2)-(self.c_mu/2))
-        self.M += (np.outer((self.c_1/2)*self.d_sigma_M,
-                            self.p_sigma))+((self.c_mu/2)*temp2)
+        self.M *= (1 - (self.c_1 / 2) - (self.c_mu / 2))
+        self.M += (np.outer((self.c_1 / 2) * self.d_sigma_M,
+                            self.p_sigma)) + ((self.c_mu / 2) * temp2)
 
         # update step size
         self.sigma *= np.exp((self.c_sigma / self.d_sigma) *
@@ -404,13 +405,13 @@ Args:
 
         # otherwise tuning constants break - use standard CMA-ES instead :)
         assert self.lmbd < self.n
-        self.mu = self.lmbd//2
+        self.mu = self.lmbd // 2
         self.w = np.array([np.log(self.mu + 0.5) - np.log(i + 1)
                            for i in range(self.mu)])
         self.w /= np.sum(self.w)
         self.mu_w = 1 / np.sum(np.square(self.w))
 
-        self.c_sigma = (2*self.lmbd)/self.n
+        self.c_sigma = (2 * self.lmbd) / self.n
 
         # 2: initialize
         self.t = 0
@@ -420,15 +421,15 @@ Args:
         self.p_sigma = np.zeros((self.n,))
 
         # useful values
-        self.c_sigma_update = np.sqrt(self.mu_w*self.c_sigma*(2-self.c_sigma))
+        self.c_sigma_update = np.sqrt(self.mu_w * self.c_sigma * (2 - self.c_sigma))
         self.fd = np.zeros((self.lmbd,))
 
         # deviation from the paper
         # damping constant
         self.d_sigma = 2
         # ~ expected lengthof normal distributed vector
-        self.chi = np.sqrt(self.n) * (1 - (1/(4*self.n)) -
-                                      (1/(21*self.n*self.n)))
+        self.chi = np.sqrt(self.n) * (1 - (1 / (4 * self.n)) -
+                                      (1 / (21 * self.n * self.n)))
 
     def step(self):
         '''Optimization step of the ES.
