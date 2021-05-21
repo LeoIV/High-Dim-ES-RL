@@ -265,7 +265,7 @@ class ActionTransformations(object):
 
 action_transformations = {'CartPole-v0': ActionTransformations.cartPoleV0,
                           'CarRacing-v0': ActionTransformations.carRacingV0,
-                          'BipedalWalker-v2': ActionTransformations.bipedalWalkerV2,
+                          'BipedalWalker-v3': ActionTransformations.bipedalWalkerV2,
                           'Breakout-ram-v0': ActionTransformations.breakoutRamV0,
                           'RoboschoolPong-v1': ActionTransformations.roboschoolPongV1,
                           'Acrobot-v1': ActionTransformations.acrobotV1}
