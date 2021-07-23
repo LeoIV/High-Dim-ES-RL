@@ -213,7 +213,7 @@ class Models(object):
 
     @staticmethod
     def acrobotModel(input_dim, output_dim):
-        input_dim = input_dim[0]
+        input_dim = input_dim
         model = Sequential()
         model.add(Dense(30, input_dim=input_dim))
         model.add(Activation('elu'))
